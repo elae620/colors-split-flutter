@@ -34,6 +34,7 @@ class _SplitScreenState extends State<SplitScreen> {
   bool _randomColors = true;
   Color _baseColor = Colors.blue;
   double _borderWidth = 1;
+  double _borderRadius = 0;
   final List<int> _splitHistory = [];
   final List<int> _redoHistory = [];
 
@@ -72,6 +73,7 @@ class _SplitScreenState extends State<SplitScreen> {
                 randomColors: _randomColors,
                 baseColor: _baseColor,
                 borderWidth: _borderWidth,
+                borderRadius: _borderRadius,
                 splitIds: _splitHistory.toSet(),
                 onSplit: _split,
               ),
@@ -108,11 +110,14 @@ class _SplitScreenState extends State<SplitScreen> {
                 color: Theme.of(context).colorScheme.surface,
                 child: _SettingsMenu(
                   borderWidth: _borderWidth,
+                  borderRadius: _borderRadius,
                   randomColors: _randomColors,
                   baseColor: _baseColor,
                   palette: _palette,
                   onBorderWidthChanged: (value) =>
                       setState(() => _borderWidth = value),
+                  onBorderRadiusChanged: (value) =>
+                      setState(() => _borderRadius = value),
                   onRandomColorsSelected: () =>
                       setState(() => _randomColors = true),
                   onColorSelected: (color) => setState(() {
@@ -176,19 +181,23 @@ class _HistoryControls extends StatelessWidget {
 class _SettingsMenu extends StatelessWidget {
   const _SettingsMenu({
     required this.borderWidth,
+    required this.borderRadius,
     required this.randomColors,
     required this.baseColor,
     required this.palette,
     required this.onBorderWidthChanged,
+    required this.onBorderRadiusChanged,
     required this.onRandomColorsSelected,
     required this.onColorSelected,
     required this.onClose,
   });
   final double borderWidth;
+  final double borderRadius;
   final bool randomColors;
   final Color baseColor;
   final Map<String, Color> palette;
   final ValueChanged<double> onBorderWidthChanged;
+  final ValueChanged<double> onBorderRadiusChanged;
   final VoidCallback onRandomColorsSelected;
   final ValueChanged<Color> onColorSelected;
   final VoidCallback onClose;
@@ -223,6 +232,16 @@ class _SettingsMenu extends StatelessWidget {
                 divisions: 12,
                 label: '${borderWidth.round()} px',
                 onChanged: onBorderWidthChanged,
+              ),
+              const SizedBox(height: 12),
+              Text('Arrondi des coins : ${borderRadius.round()} px'),
+              Slider(
+                value: borderRadius,
+                min: 0,
+                max: 48,
+                divisions: 24,
+                label: '${borderRadius.round()} px',
+                onChanged: onBorderRadiusChanged,
               ),
               const SizedBox(height: 20),
               Text('Couleurs', style: Theme.of(context).textTheme.titleMedium),
