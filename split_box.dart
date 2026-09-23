@@ -8,6 +8,7 @@ class SplitBox extends StatelessWidget {
     required this.randomColors,
     required this.baseColor,
     required this.borderWidth,
+    required this.borderRadius,
     required this.splitIds,
     required this.onSplit,
   });
@@ -17,6 +18,7 @@ class SplitBox extends StatelessWidget {
   final bool randomColors;
   final Color baseColor;
   final double borderWidth;
+  final double borderRadius;
   final Set<int> splitIds;
   final ValueChanged<int> onSplit;
 
@@ -40,6 +42,7 @@ class SplitBox extends StatelessWidget {
           decoration: BoxDecoration(
             color: _color,
             border: Border.all(color: Colors.black87, width: borderWidth),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
       );
@@ -51,6 +54,7 @@ class SplitBox extends StatelessWidget {
       randomColors: randomColors,
       baseColor: baseColor,
       borderWidth: borderWidth,
+      borderRadius: borderRadius,
       splitIds: splitIds,
       onSplit: onSplit,
     );
@@ -60,6 +64,7 @@ class SplitBox extends StatelessWidget {
       randomColors: randomColors,
       baseColor: baseColor,
       borderWidth: borderWidth,
+      borderRadius: borderRadius,
       splitIds: splitIds,
       onSplit: onSplit,
     );
